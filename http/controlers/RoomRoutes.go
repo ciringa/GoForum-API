@@ -25,3 +25,28 @@ func CreateRoom(ctx *gin.Context) {
 		"content":Room,
 	})
 }
+
+func ReturnRooms(ctx*gin.Context){
+	//get the rooms list 
+	var rooms[] models.Rooms
+	lib.DB.Find(&rooms)
+
+	ctx.JSON(200,gin.H{
+		"message":"successfully returned list",
+		"Content":rooms,
+	})
+}
+
+func ReturnSpecificRoom(ctx*gin.Context){
+	//get specific room parameter
+	Id := ctx.Param("Id")
+	//var used to 
+	var room models.Rooms
+	lib.DB.First(room,Id)
+
+	ctx.JSON(200, gin.H{
+		"message":"Successfully returned Specified Room",
+		"Content": room,
+	})
+
+}
